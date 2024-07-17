@@ -25558,7 +25558,7 @@ file_index,name,node_list_entry,node_id,is_stop,node_seq
 29,ClearRoyWest,27479,27479,True,35
 29,ClearRoyWest,-27540,27540,False,36
 29,ClearRoyWest,-27567,27567,False,37
-29,ClearRoyWest,27575,27575,True,38
+29,ClearRoyWest,-27575,27575,False,38
 29,ClearRoyWest,-27548,27548,False,39
 29,ClearRoyWest,-27535,27535,False,40
 29,ClearRoyWest,-27518,27518,False,41
@@ -40544,7 +40544,7 @@ file_index,name,node_list_entry,node_id,is_stop,node_seq
 45,ClearRoyWest,27479,27479,True,80
 45,ClearRoyWest,-27540,27540,False,81
 45,ClearRoyWest,-27567,27567,False,82
-45,ClearRoyWest,27575,27575,True,83
+45,ClearRoyWest,-27575,27575,False,83
 45,ClearRoyWest,-27548,27548,False,84
 45,ClearRoyWest,-27535,27535,False,85
 45,ClearRoyWest,-27518,27518,False,86
@@ -47708,7 +47708,7 @@ file_index,name,node_list_entry,node_id,is_stop,node_seq
 52,ClearRoyWest,27479,27479,True,125
 52,ClearRoyWest,-27540,27540,False,126
 52,ClearRoyWest,-27567,27567,False,127
-52,ClearRoyWest,27575,27575,True,128
+52,ClearRoyWest,-27575,27575,False,128
 52,ClearRoyWest,-27548,27548,False,129
 52,ClearRoyWest,-27535,27535,False,130
 52,ClearRoyWest,-27518,27518,False,131
