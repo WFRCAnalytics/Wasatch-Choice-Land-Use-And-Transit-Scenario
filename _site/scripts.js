@@ -358,7 +358,7 @@ require([
         layerInfos: [
                         { layer: lyrDevStatus    , title: 'Changeable Status'     },
                         { layer: lyrBufferedStops, title: 'Station Buffers'       },
-                        { layer: lyrSeCalcs      , title: 'Changeable Percent'    },
+                        { layer: lyrSeCalcs      , title: 'Main Display'    },
                         { layer: lyrWcCenters    , title: 'Wasatch Choice Centers'}
                     ]
     });
