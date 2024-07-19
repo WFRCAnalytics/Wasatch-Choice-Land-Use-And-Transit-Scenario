@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MWasatch Choice Centers - Transit Corridor Land Use Scenario</title>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
+    <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/1.8.0/calcite.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://js.arcgis.com/4.27/"></script>
+    <script type="module" src="https://js.arcgis.com/calcite-components/1.8.0/calcite.esm.js"></script>
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header>
+        <h2>Wasatch Choice Centers - Transit Corridor Land Use Scenario</h2>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            
+            <calcite-label layout="inline"><b>Measure</b></calcite-label>
+            <calcite-select id="selectParameter">
+                <calcite-option value="TOTHH">Households</calcite-option>
+                <calcite-option value="TOTEMP">Employment</calcite-option>
+            </calcite-select>
+            <br/>
+            <calcite-label layout="inline"><b>Display Layer</b></calcite-label>
+
+            <calcite-radio-button-group name="rgbLayers" id="rgbLayers" layout="vertical">
+                <calcite-label layout="inline">
+                <calcite-radio-button name="rgbLayers" value="s_tot" checked></calcite-radio-button>
+                  Scenario
+                </calcite-label>
+                <calcite-label layout="inline">
+                <calcite-radio-button name="rgbLayers" value="f_tot"></calcite-radio-button>
+                  Forecast
+                </calcite-label>
+                <calcite-label layout="inline">
+                <calcite-radio-button name="rgbLayers" value="b_tot"></calcite-radio-button>
+                  Base
+                </calcite-label>
+                <calcite-label layout="inline">
+                  <calcite-radio-button name="rgbLayers" value="s_diff"></calcite-radio-button>
+                  Scenario Compared to Forecast
+                </calcite-label>
+                <calcite-label layout="inline">
+                  <calcite-radio-button name="rgbLayers" value="s_grow"></calcite-radio-button>
+                  Scenario Compared to Base
+                </calcite-label>
+                <calcite-label layout="inline">
+                  <calcite-radio-button name="rgbLayers" value="pct_ch"></calcite-radio-button>
+                  Percent Changeable
+                </calcite-label>
+                <calcite-label layout="inline">
+                  <calcite-radio-button name="rgbLayers" value="off"></calcite-radio-button>
+                  Off
+                </calcite-label>
+              </calcite-radio-button-group>
+              <br/>
+              <calcite-label layout="inline"><b>Absolute/Density</b></calcite-label>
+              <calcite-select id="selectAbsDen">
+                  <calcite-option value=" ">Absolute</calcite-option>
+                  <calcite-option value="_den">Density</calcite-option>
+              </calcite-select>
+       
+        </aside>
+        <main>
+            <div id="viewDiv"></div>
+        </main>
+    </div>
+</body>
+</html>
