@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MWasatch Choice Centers - Transit Corridor Land Use Scenario</title>
+    <title>WC Centers - Transit Corridor Land Use Scenario</title>
     <link rel="stylesheet" href="https://js.arcgis.com/4.27/esri/themes/light/main.css">
     <link rel="stylesheet" type="text/css" href="https://js.arcgis.com/calcite-components/1.8.0/calcite.css" />
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -22,7 +22,8 @@
             <calcite-label layout="inline"><b>Display</b></calcite-label>
             <calcite-select id="selectParameter">
                 <calcite-option value="TOTHH">Households</calcite-option>
-                <calcite-option value="TOTEMP">Employees</calcite-option>
+                <calcite-option value="TOTEMP">Jobs</calcite-option>
+                <calcite-option value="TOTHHEMP">Household+Job Intensity</calcite-option>
             </calcite-select>
             <br/>
             <calcite-label layout="inline"><b>Layer</b></calcite-label>
@@ -63,6 +64,123 @@
                   <calcite-option value=" ">Absolute</calcite-option>
                   <calcite-option value="_den">Density</calcite-option>
               </calcite-select>
+              <!--
+              <br/>
+              <h4>Layer Display</h4>
+              <label for="checkboxDisplay">
+                  <calcite-checkbox id="checkboxDisplay" checked></calcite-checkbox>
+                  Display
+              </label>
+              <br/>
+              <label for="checkboxBuffers">
+                  <calcite-checkbox id="checkboxBuffers" checked></calcite-checkbox>
+                  Buffers
+              </label>
+              <br/>
+              <label for="checkboxCenters">
+                  <calcite-checkbox id="checkboxCenters" checked></calcite-checkbox>
+                  Centers
+              </label>
+              <br/>
+              <label for="checkboxChange">
+                  <calcite-checkbox id="checkboxChange" checked></calcite-checkbox>
+                  Changeable Status
+              </label>
+              -->
+              <h3>West Weber Rail</h3>
+              <table border="1" class="dataframe" width="100%">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th style="text-align: right;">2023<br/>Base</th>
+                    <th style="text-align: right;">2050<br/>Forecast</th>
+                    <th style="text-align: right;">2050<br/>Scenario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Households</b></td>
+                    <td style="text-align: right;">144</td>
+                    <td style="text-align: right;">662</td>
+                    <td style="text-align: right;">18,230</td>
+                  </tr>
+                  <tr>
+                    <td><b>Jobs</b></td>
+                    <td style="text-align: right;">4,597</td>
+                    <td style="text-align: right;">5,082</td>
+                    <td style="text-align: right;">7,143</td>
+                  </tr>
+                  <tr>
+                    <td><b>HH+Job Intensity</b></td>
+                    <td style="text-align: right;">4,753</td>
+                    <td style="text-align: right;">5,797</td>
+                    <td style="text-align: right;">26,832</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>Roy to Clearfield via 3500 West</h3>
+              <table border="1" class="dataframe" width="100%">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th style="text-align: right;">2023<br/>Base</th>
+                    <th style="text-align: right;">2050<br/>Forecast</th>
+                    <th style="text-align: right;">2050<br/>Scenario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><b>Households</b></td>
+                    <td style="text-align: right;">1,804</td>
+                    <td style="text-align: right;">2,901</td>
+                    <td style="text-align: right;">21,290</td>
+                  </tr>
+                  <tr>
+                    <td><b>Jobs</b></td>
+                    <td style="text-align: right;">5,257</td>
+                    <td style="text-align: right;">7,459</td>
+                    <td style="text-align: right;">8,077</td>
+                  </tr>
+                  <tr>
+                    <td><b>HH+Job Intensity</b></td>
+                    <td style="text-align: right;">7,206</td>
+                    <td style="text-align: right;">10,592</td>
+                    <td style="text-align: right;">31,070</td>
+                  </tr>
+                </tbody>
+              </table>
+              <h3>SL County 3300/3500 South</h3>
+              <table border="1" class="dataframe" width="100%">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th style="text-align: right;">2023<br/>Base</th>
+                    <th style="text-align: right;">2050<br/>Forecast</th>
+                    <th style="text-align: right;">2050<br/>Scenario</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <tr>
+                      <td><b>Households</b></td>
+                      <td style="text-align: right;">4,172</td>
+                      <td style="text-align: right;">6,301</td>
+                      <td style="text-align: right;">24,646</td>
+                    </tr>
+                    <td><b>Jobs</b></td>
+                    <td style="text-align: right;">15,590</td>
+                    <td style="text-align: right;">16,786</td>
+                    <td style="text-align: right;">11,987</td>
+                  </tr>
+                  <tr>
+                    <td><b>HH+Job Intensity</b></td>
+                    <td style="text-align: right;">20,095</td>
+                    <td style="text-align: right;">23,590</td>
+                    <td style="text-align: right;">38,605</td>
+                  </tr>
+                </tbody>
+              </table>
+              <br/>
               <br/>
               <a href="https://docs.google.com/spreadsheets/d/1TFyI--_dXi7UMJn1iitH96mWeAaPsLGcdmCx60MYmB0/edit?pli=1&gid=0#gid=0" target="_blank">Land Use Assumptions</a>
         </aside>

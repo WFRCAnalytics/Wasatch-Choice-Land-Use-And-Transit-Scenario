@@ -268,6 +268,20 @@ require([
     });
     map.add(lyrDevStatus);
 
+    
+//    // add listenter for check box to update display of Segments layer
+//    document.getElementById("checkboxChange").addEventListener("calciteCheckboxChange", function(event) {
+//        let isChecked = event.target.checked;
+//        console.log("Change Checkbox is:", isChecked ? "Checked" : "Unchecked");
+//
+//        if (isChecked) {
+//            lyrDevStatus.visible = true;  // Hide the segmentsLayer when checked
+//        } else {
+//            lyrDevStatus.visible = false;   // Show the segmentsLayer when unchecked
+//        }
+//    });
+    
+
 
     // Create a GeoJSONLayer
     var lyrSeCalcs = new GeoJSONLayer({
@@ -277,6 +291,19 @@ require([
     lyrSeCalcs.renderer = rendererTotal;
     lyrSeCalcs.labelingInfo = labelingInfoTotal;
     map.add(lyrSeCalcs);
+
+    
+//    // add listenter for check box to update display of Segments layer
+//    document.getElementById("checkboxDisplay").addEventListener("calciteCheckboxChange", function(event) {
+//        let isChecked = event.target.checked;
+//        console.log("Buffer Checkbox is:", isChecked ? "Checked" : "Unchecked");
+//
+//        if (isChecked) {
+//            lyrSeCalcs.visible = true;  // Hide the segmentsLayer when checked
+//        } else {
+//            lyrSeCalcs.visible = false;   // Show the segmentsLayer when unchecked
+//        }
+//    });
 
 
     // Create a GeoJSONLayer
@@ -301,10 +328,27 @@ require([
                 color: "#686868",
                 width: 1
             }
-        })
+        })//,
+        //labelingInfo: new LabelClass({
+        //    labelExpressionInfo: {
+        //        expression: "$feature.TAZID"
+        //    },
+        //    symbol: new TextSymbol({
+        //        color: "#AAAAAA",
+        //        haloColor: "white",
+        //        haloSize: "0px",
+        //        font: {
+        //            size: "10px",
+        //            family: "Arial"
+        //        }
+        //    }),
+        //    labelPlacement: "above-center",
+        //    minScale: 0,
+        //    maxScale: 0
+        //})
     });
+    
     map.add(lyrTaz)
-
     
     // Create a GeoJSONLayer
     var lyrWcCentersWhite = new GeoJSONLayer({
@@ -319,21 +363,33 @@ require([
     });
     map.add(lyrWcCentersWhite)
 
-
     // Create a GeoJSONLayer
     var lyrWcCenters = new GeoJSONLayer({
         url: "data/wc_centers.geojson",
         renderer: new UniqueValueRenderer({
             field: "AreaType",
             uniqueValueInfos: [
-                { value: "Metropolitan Center", symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: "purple" } }, label: "Metropolitan Center"},
-                { value: "Urban Center"       , symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: "darkred" } }, label: "Urban Center"       },
-                { value: "City Center"        , symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: "darkblue" } }, label: "City Center"        },
-                { value: "Neighborhood Center", symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: "darkorange" } }, label: "Neighborhood Center"} ]
+                { value: "Metropolitan Center", symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: new Color("#f15825") } }, label: "Metropolitan Center"},
+                { value: "Urban Center"       , symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: new Color("#e7902a") } }, label: "Urban Center"       },
+                { value: "City Center"        , symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: new Color("#fcb622") } }, label: "City Center"        },
+                { value: "Neighborhood Center", symbol: { type: "simple-fill", color: null, outline: { width: 2.5, color: new Color("#fedb97") } }, label: "Neighborhood Center"} ]
         })
     });
     map.add(lyrWcCenters)
-
+    
+//    // add listenter for check box to update display of Segments layer
+//    document.getElementById("checkboxCenters").addEventListener("calciteCheckboxChange", function(event) {
+//        let isChecked = event.target.checked;
+//        console.log("Centers Checkbox is:", isChecked ? "Checked" : "Unchecked");
+//
+//        if (isChecked) {
+//            lyrWcCentersWhite.visible = true;
+//            lyrWcCenters.visible = true;  // Hide the segmentsLayer when checked
+//        } else {
+//            lyrWcCentersWhite.visible = false;
+//            lyrWcCenters.visible = false;   // Show the segmentsLayer when unchecked
+//        }
+//    });
     
     // Create a GeoJSONLayer
     var lyrBufferedStops = new GeoJSONLayer({
@@ -350,8 +406,21 @@ require([
         })
     });
     map.add(lyrBufferedStops)
-    
 
+    
+//    // add listenter for check box to update display of Segments layer
+//    document.getElementById("checkboxBuffers").addEventListener("calciteCheckboxChange", function(event) {
+//        let isChecked = event.target.checked;
+//        console.log("Buffer Checkbox is:", isChecked ? "Checked" : "Unchecked");
+//
+//        if (isChecked) {
+//            lyrBufferedStops.visible = true;  // Hide the segmentsLayer when checked
+//        } else {
+//            lyrBufferedStops.visible = false;   // Show the segmentsLayer when unchecked
+//        }
+//    });
+    
+    
     // CREATE LEGEND WIDGET
     const legend = new Legend({
         view: view,

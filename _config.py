@@ -4,6 +4,10 @@ import numpy as np
 
 # variables
 
+df_center_override = pd.DataFrame([
+    [15180,'Urban Center']
+], columns=['N','nearest_AreaType'])
+
 # location of tdm for model runs
 tdm_path = r'E:\GitHub\WF-TDM-v9x'
 
@@ -26,8 +30,9 @@ input_taz_shapefile_folder = 'input/taz-shapefile'
 se_years = [2023,2032,2042,2050]
 se_base_year = 2023
 input_model_se_folder = 'input/se-data'
-
 map_year = 2050
+
+df_emp_subcategories = pd.read_csv('E:/GitHub/Resources/TDM/SeEmpSubtotalCategories.csv')
 
 # Projects
 
@@ -38,18 +43,6 @@ df_projects = pd.DataFrame([
 ], columns=['project_id','project_name','tdm_line_name'])
 
 df_projects['tdm_model'] = tdm_model  # add field for joining later
-
-
-df_centers = pd.DataFrame(data = {
-    'Parameter':           ['FAR', 'bldg_size', 'size_of_hh_units', 'sf_per_employee', 'units_per_acre', 'sf_per_acre', '%_residential', '%_non_res', 'gross_to_net_conversion_(streets,_etc)', 'final_units_per_acre', 'final_emps_per_acre', 'application_area', 'application_area_miles'],
-    'Neighborhood Center': [0.6  , 26136      , 1000              , 500              , 26.136          , 52.27        , 0.85           , 0.15       , 0.8                                     , 18                    , 6                    , '1/8 mile radius' , 0.1250                  ],
-    'City Center':         [1.13 , 49222.8    , 850               , 450              , 57.90917647     , 109.38       , 0.85           , 0.15       , 0.8                                     , 39                    , 13                   , '990 foot radius' , 0.1875                  ],
-    'Urban Center':        [1.5  , 65340      , 750               , 400              , 87.12           , 163.35       , 0.85           , 0.15       , 0.8                                     , 59                    , 20                   , '1/4 mile radius' , 0.2500                  ],
-    'Metropolitan Center': [2.0  , 86734      , 650               , 350              , 133.43          , 247.81       , 0.85           , 0.15       , 0.8                                     , 91                    , 30                   , '1/3 mile radius' , 0.3333                  ]
-})
-df_centers.set_index('Parameter', inplace=True)
-df_centers = df_centers.T.reset_index()
-df_centers.rename(columns={'index':'center_type'}, inplace=True)
 
 # Define condition that parcels will not change
 def get_condition_no_change(df):
@@ -62,3 +55,76 @@ def get_condition_no_change(df):
                            ((df[['sf', 'mf']].sum(axis=1) == 2) & \
                             (df[['ind', 'retail', 'office', 'govt', 'mixed', 'other']].sum(axis=1) == 0)))
     return condition_no_change
+
+
+# Transposed dataframe definition
+df_centers = pd.DataFrame(data={
+    'Neighborhood Center': {
+        'FAR': 0.6,
+        'bldg_size': 26136,
+        'size_of_hh_units': 1000,
+        'sf_per_employee': 500,
+        'units_per_acre': 26.136,
+        'sf_per_acre': 52.27,
+        '%_residential': 0.85,
+        '%_non_res': 0.15,
+        'gross_to_net_conversion_(streets,_etc)': 0.8,
+        'final_units_per_acre': 18,
+        'final_emps_per_acre': 6,
+        'application_area': '1/8 mile radius',
+        'application_area_miles': 0.1250,
+        'household_size': 1.62,
+        'office_retail_split': '20/80'
+    },
+    'City Center': {
+        'FAR': 1.13,
+        'bldg_size': 49222.8,
+        'size_of_hh_units': 850,
+        'sf_per_employee': 450,
+        'units_per_acre': 57.90917647,
+        'sf_per_acre': 109.38,
+        '%_residential': 0.85,
+        '%_non_res': 0.15,
+        'gross_to_net_conversion_(streets,_etc)': 0.8,
+        'final_units_per_acre': 39,
+        'final_emps_per_acre': 13,
+        'application_area': '990 foot radius',
+        'application_area_miles': 0.1875,
+        'household_size': 1.62,
+        'office_retail_split': '30/70'
+    },
+    'Urban Center': {
+        'FAR': 1.5,
+        'bldg_size': 65340,
+        'size_of_hh_units': 750,
+        'sf_per_employee': 400,
+        'units_per_acre': 87.12,
+        'sf_per_acre': 163.35,
+        '%_residential': 0.85,
+        '%_non_res': 0.15,
+        'gross_to_net_conversion_(streets,_etc)': 0.8,
+        'final_units_per_acre': 59,
+        'final_emps_per_acre': 20,
+        'application_area': '1/4 mile radius',
+        'application_area_miles': 0.2500,
+        'household_size': 1.62,
+        'office_retail_split': '40/60'
+    },
+    'Metropolitan Center': {
+        'FAR': 2.0,
+        'bldg_size': 86734,
+        'size_of_hh_units': 650,
+        'sf_per_employee': 350,
+        'units_per_acre': 133.43,
+        'sf_per_acre': 247.81,
+        '%_residential': 0.85,
+        '%_non_res': 0.15,
+        'gross_to_net_conversion_(streets,_etc)': 0.8,
+        'final_units_per_acre': 91,
+        'final_emps_per_acre': 30,
+        'application_area': '1/3 mile radius',
+        'application_area_miles': 0.3333,
+        'household_size': 1.62,
+        'office_retail_split': '50/50'
+    }
+}).T.reset_index().rename(columns={'index': 'center_type'})
