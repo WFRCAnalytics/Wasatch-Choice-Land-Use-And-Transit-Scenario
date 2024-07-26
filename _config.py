@@ -34,6 +34,9 @@ map_year = 2050
 
 df_emp_subcategories = pd.read_csv('E:/GitHub/Resources/TDM/SeEmpSubtotalCategories.csv')
 
+# HH+Emp intensity
+hh_factor = 1.8
+
 # Projects
 
 df_projects = pd.DataFrame([
