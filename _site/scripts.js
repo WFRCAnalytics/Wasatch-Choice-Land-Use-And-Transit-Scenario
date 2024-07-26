@@ -269,28 +269,68 @@ require([
     map.add(lyrDevStatus);
 
     
-//    // add listenter for check box to update display of Segments layer
-//    document.getElementById("checkboxChange").addEventListener("calciteCheckboxChange", function(event) {
-//        let isChecked = event.target.checked;
-//        console.log("Change Checkbox is:", isChecked ? "Checked" : "Unchecked");
-//
-//        if (isChecked) {
-//            lyrDevStatus.visible = true;  // Hide the segmentsLayer when checked
-//        } else {
-//            lyrDevStatus.visible = false;   // Show the segmentsLayer when unchecked
-//        }
-//    });
-    
+    // add listenter for check box to update display of Segments layer
+    document.getElementById("checkboxChange").addEventListener("calciteCheckboxChange", function(event) {
+        let isChecked = event.target.checked;
+        console.log("Change Checkbox is:", isChecked ? "Checked" : "Unchecked");
 
+        if (isChecked) {
+            lyrDevStatus.visible = true;  // Hide the segmentsLayer when checked
+        } else {
+            lyrDevStatus.visible = false;   // Show the segmentsLayer when unchecked
+        }
+    });
+    
 
     // Create a GeoJSONLayer
     var lyrSeCalcs = new GeoJSONLayer({
         url: "data/se_calcs.geojson",
+        definitionExpression: "parameter = 'TOTHH'",
+        renderer: rendererTotal,
+        labelingInfo: labelingInfoTotal,
+        popupTemplate: {
+            title: "N: {N}, Project ID: {project_id}, Area Type: {nearest_AreaType}, TAZ ID: {TAZID}",
+            content: [{
+                type: "fields",
+                fieldInfos: [
+                    { fieldName: "N", label: "N", visible: true },
+                    { fieldName: "project_id", label: "Project ID", visible: true },
+                    { fieldName: "nearest_AreaType", label: "Nearest Area Type", visible: true },
+                    { fieldName: "TAZID", label: "TAZ ID", visible: true },
+                    { fieldName: "TAZACRES", label: "TAZ Acres", visible: true },
+                    { fieldName: "sqm", label: "Square Meters", visible: true },
+                    { fieldName: "acres", label: "Acres", visible: true },
+                    { fieldName: "pctu_ch", label: "PCTU Change", visible: true },
+                    { fieldName: "parameter", label: "Parameter", visible: true },
+                    { fieldName: "taz_ratio", label: "TAZ Ratio", visible: true },
+                    { fieldName: "center_type", label: "Center Type", visible: true },
+                    { fieldName: "perac_ch", label: "Per Acre Change", visible: true },
+                    { fieldName: "value_F", label: "Value F", visible: true },
+                    { fieldName: "se_year_F", label: "SE Year F", visible: true },
+                    { fieldName: "value_B", label: "Value B", visible: true },
+                    { fieldName: "se_year_B", label: "SE Year B", visible: true },
+                    { fieldName: "growth", label: "Growth", visible: true },
+                    { fieldName: "b_tot", label: "B Total", visible: true },
+                    { fieldName: "f_tot", label: "F Total", visible: true },
+                    { fieldName: "b_ch", label: "B Change", visible: true },
+                    { fieldName: "f_ch", label: "F Change", visible: true },
+                    { fieldName: "acres_ch", label: "Acres Change", visible: true },
+                    { fieldName: "s_ch", label: "S Change", visible: true },
+                    { fieldName: "s_tot", label: "S Total", visible: true },
+                    { fieldName: "s_diff", label: "S Difference", visible: true },
+                    { fieldName: "s_grow", label: "S Growth", visible: true },
+                    { fieldName: "b_tot_den", label: "B Total Density", visible: true },
+                    { fieldName: "f_tot_den", label: "F Total Density", visible: true },
+                    { fieldName: "s_tot_den", label: "S Total Density", visible: true },
+                    { fieldName: "s_grow_den", label: "S Growth Density", visible: true },
+                    { fieldName: "s_diff_den", label: "S Difference Density", visible: true }
+                ]
+            }]
+        }
     });
-    lyrSeCalcs.definitionExpression = "parameter = 'TOTHH'";
-    lyrSeCalcs.renderer = rendererTotal;
-    lyrSeCalcs.labelingInfo = labelingInfoTotal;
+
     map.add(lyrSeCalcs);
+
 
     
 //    // add listenter for check box to update display of Segments layer
