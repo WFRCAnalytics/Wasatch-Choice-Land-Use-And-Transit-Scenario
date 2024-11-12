@@ -4,9 +4,7 @@ import numpy as np
 
 # variables
 
-df_center_override = pd.DataFrame([
-    [15180,'Urban Center']
-], columns=['N','nearest_AreaType'])
+df_center_override = pd.DataFrame([], columns=['N','nearest_AreaType'])
 
 # location of tdm for model runs
 tdm_path = r'E:\GitHub\WF-TDM-v9x'
@@ -38,14 +36,26 @@ df_emp_subcategories = pd.read_csv('E:/GitHub/Resources/TDM/SeEmpSubtotalCategor
 hh_factor = 1.8
 
 # Projects
-
+# WHEN NO PROJECTS ARE DEFINED, CODE WILL ALL PROJECTS
 df_projects = pd.DataFrame([
-    [1,'West Weber Rail'                , 'WestWeber'    ],
-    [2,'3300/3500 South'                , 'BRT3533S_Core'],
-    [3,'Roy to Clearfield via 3500 West', 'ClearRoyWest' ]
+#    [1,'West Weber Rail'                , 'WestWeber'    ],
+#    [2,'3300/3500 South'                , 'BRT3533S_Core'],
+#    [3,'Roy to Clearfield via 3500 West', 'ClearRoyWest' ]
 ], columns=['project_id','project_name','tdm_line_name'])
 
 df_projects['tdm_model'] = tdm_model  # add field for joining later
+
+
+# NO BUILD OVERRIDES
+
+taz_olympiahills_lst = [932,933,2030]
+taz_pointofmountain_lst = [2138,2139,2140,2141,2149,2170]
+
+taz_override_lst = taz_olympiahills_lst + taz_pointofmountain_lst
+taz_override_lst
+
+def condition_no_build(df, tazfieldname):
+    return ((df['no_build'] == 1) & ~(df[tazfieldname].isin(taz_override_lst)));
 
 # Define condition that parcels will not change
 def get_condition_no_change(df):

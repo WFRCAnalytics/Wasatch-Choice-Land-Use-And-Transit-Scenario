@@ -295,7 +295,8 @@ require([
                 fieldInfos: [
                     { fieldName: "N", label: "N", visible: true },
                     { fieldName: "project_id", label: "Project ID", visible: true },
-                    { fieldName: "nearest_AreaType", label: "Nearest Area Type", visible: true },
+                    { fieldName: "AreaName", label: "Area Name", visible: true },
+                    { fieldName: "AreaType", label: "Area Type", visible: true },
                     { fieldName: "TAZID", label: "TAZ ID", visible: true },
                     { fieldName: "TAZACRES", label: "TAZ Acres", visible: true },
                     { fieldName: "sqm", label: "Square Meters", visible: true },
@@ -431,21 +432,21 @@ require([
 //        }
 //    });
     
-    // Create a GeoJSONLayer
-    var lyrBufferedStops = new GeoJSONLayer({
-        url: "data/buffered_stops.geojson",
-        renderer: new SimpleRenderer({
-            symbol: {
-                type: "simple-fill",
-                color: null,
-                outline: {
-                    width: 2,
-                    color: "black"
-                } 
-            }
-        })
-    });
-    map.add(lyrBufferedStops)
+//    // Create a GeoJSONLayer
+//    var lyrBufferedStops = new GeoJSONLayer({
+//        url: "data/buffered_stops.geojson",
+//        renderer: new SimpleRenderer({
+//            symbol: {
+//                type: "simple-fill",
+//                color: null,
+//                outline: {
+//                    width: 2,
+//                    color: "black"
+//                } 
+//            }
+//        })
+//    });
+//    map.add(lyrBufferedStops)
 
     
 //    // add listenter for check box to update display of Segments layer
@@ -466,7 +467,7 @@ require([
         view: view,
         layerInfos: [
                         { layer: lyrDevStatus    , title: 'Changeable Status'     },
-                        { layer: lyrBufferedStops, title: 'Station Buffers'       },
+//                        { layer: lyrBufferedStops, title: 'Station Buffers'       },
                         { layer: lyrSeCalcs      , title: 'Main Display'    },
                         { layer: lyrWcCenters    , title: 'Wasatch Choice Centers'}
                     ]
