@@ -11,13 +11,13 @@ tdm_path = r'E:\GitHub\WF-TDM-v9x'
 
 # transit files
 input_model_line_files_folder = 'input/transit-lin-files'
-tdm_model = 'WF-TDM-v9x_application/v901-transit-corridors_6adb48'
-tdm_transit_scenario = 'Lin_2032_3Corridors'
+tdm_model = 'application/v910-strategy-testing-rtp'
+tdm_transit_scenarios = ['Lin_2050_BNS','Lin_2050_FG_LB']
 
 # network shapefile
-tdm_link_shapefile = 'WFv902_MasterNet - Link.shp'
+tdm_link_shapefile = 'WFv910_MasterNet - Link.shp'
 input_tdm_link_shapefile_folder = 'input/tdm-link-shapefile'
-tdm_node_shapefile = 'WFv902_MasterNet - Node.shp'
+tdm_node_shapefile = 'WFv910_MasterNet - Node.shp'
 input_tdm_node_shapefile_folder = 'input/tdm-node-shapefile'
 
 # taz shapefile
@@ -30,7 +30,7 @@ se_base_year = 2023
 input_model_se_folder = 'input/se-data'
 map_year = 2050
 
-df_emp_subcategories = pd.read_csv('E:/GitHub/Resources/TDM/SeEmpSubtotalCategories.csv')
+df_emp_subcategories = pd.read_csv('E:/GitHub/Resources/1-TDM/SeEmpSubtotalCategories.csv')
 
 # HH+Emp intensity
 hh_factor = 1.8
@@ -54,7 +54,7 @@ taz_pointofmountain_lst = [2138,2139,2140,2141,2149,2170]
 taz_override_lst = taz_olympiahills_lst + taz_pointofmountain_lst
 taz_override_lst
 
-def condition_no_build(df, tazfieldname):
+def get_condition_no_build(df, tazfieldname):
     return ((df['no_build'] == 1) & ~(df[tazfieldname].isin(taz_override_lst)));
 
 # Define condition that parcels will not change
@@ -73,71 +73,49 @@ def get_condition_no_change(df):
 # Transposed dataframe definition
 df_centers = pd.DataFrame(data={
     'Neighborhood Center': {
-        'FAR': 0.6,
-        'bldg_size': 26136,
-        'size_of_hh_units': 1000,
-        'sf_per_employee': 500,
-        'units_per_acre': 26.136,
-        'sf_per_acre': 52.27,
-        '%_residential': 0.85,
-        '%_non_res': 0.15,
-        'gross_to_net_conversion_(streets,_etc)': 0.8,
-        'final_units_per_acre': 18,
-        'final_emps_per_acre': 6,
-        'application_area': '1/8 mile radius',
-        'application_area_miles': 0.1250,
+        'final_units_per_acre': 6,
+        'final_emps_per_acre': 2,
         'household_size': 1.62,
         'office_retail_split': '20/80'
     },
     'City Center': {
-        'FAR': 1.13,
-        'bldg_size': 49222.8,
-        'size_of_hh_units': 850,
-        'sf_per_employee': 450,
-        'units_per_acre': 57.90917647,
-        'sf_per_acre': 109.38,
-        '%_residential': 0.85,
-        '%_non_res': 0.15,
-        'gross_to_net_conversion_(streets,_etc)': 0.8,
-        'final_units_per_acre': 39,
-        'final_emps_per_acre': 13,
-        'application_area': '990 foot radius',
-        'application_area_miles': 0.1875,
+        'final_units_per_acre': 9,
+        'final_emps_per_acre': 9,
         'household_size': 1.62,
         'office_retail_split': '30/70'
     },
     'Urban Center': {
-        'FAR': 1.5,
-        'bldg_size': 65340,
-        'size_of_hh_units': 750,
-        'sf_per_employee': 400,
-        'units_per_acre': 87.12,
-        'sf_per_acre': 163.35,
-        '%_residential': 0.85,
-        '%_non_res': 0.15,
-        'gross_to_net_conversion_(streets,_etc)': 0.8,
-        'final_units_per_acre': 59,
-        'final_emps_per_acre': 20,
-        'application_area': '1/4 mile radius',
-        'application_area_miles': 0.2500,
-        'household_size': 1.62,
-        'office_retail_split': '40/60'
-    },
-    'Metropolitan Center': {
-        'FAR': 2.0,
-        'bldg_size': 86734,
-        'size_of_hh_units': 650,
-        'sf_per_employee': 350,
-        'units_per_acre': 133.43,
-        'sf_per_acre': 247.81,
-        '%_residential': 0.85,
-        '%_non_res': 0.15,
-        'gross_to_net_conversion_(streets,_etc)': 0.8,
-        'final_units_per_acre': 91,
-        'final_emps_per_acre': 30,
-        'application_area': '1/3 mile radius',
-        'application_area_miles': 0.3333,
+        'final_units_per_acre': 10,
+        'final_emps_per_acre': 31,
         'household_size': 1.62,
         'office_retail_split': '50/50'
+    },
+    'Metropolitan Center': {
+        'final_units_per_acre': 9,
+        'final_emps_per_acre': 70,
+        'household_size': 1.62,
+        'office_retail_split': '80/20'
     }
 }).T.reset_index().rename(columns={'index': 'center_type'})
+
+
+
+# USE COUNTY MULTIPLIER
+use_county_multiplier = True
+
+
+# Define custom settings per county
+df_centers_county_multipliers = pd.DataFrame([
+    [35, 'City Center'        ,'TOTHH' , 1.15],
+    [35, 'City Center'        ,'TOTEMP', 1.35],
+    [35, 'Urban Center'       ,'TOTHH' , 1.25],
+    [35, 'Urban Center'       ,'TOTEMP', 1.75],
+    [35, 'Metropolitan Center','TOTHH' , 1.5 ],
+    [35, 'Metropolitan Center','TOTEMP', 2.0 ],
+    [49, 'City Center'        ,'TOTHH' , 1.15],
+    [49, 'City Center'        ,'TOTEMP', 1.15],
+    [49, 'Urban Center'       ,'TOTHH' , 1.25],
+    [49, 'Urban Center'       ,'TOTEMP', 1.25],
+    [49, 'Metropolitan Center','TOTHH' , 1.5 ],
+    [49, 'Metropolitan Center','TOTEMP', 1.5 ]
+], columns=['CO_FIPS','center_type','parameter','multiplier'])

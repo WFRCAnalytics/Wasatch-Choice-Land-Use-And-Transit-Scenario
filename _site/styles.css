@@ -51,8 +51,13 @@ h3 {
 }
 
 table {
+    font-size: 11px; /* Smaller font size for tables */
     border-collapse: collapse;
-    font-size: 11px;
+}
+
+table th, table td {
+    padding: 5px; /* Adjust padding */
+    text-align: right; /* Optional: Align text */
 }
 
 table, th, td {
