@@ -73,14 +73,14 @@ def get_condition_no_change(df):
 # Transposed dataframe definition
 df_centers = pd.DataFrame(data={
     'Neighborhood Center': {
-        'final_units_per_acre': 6,
-        'final_emps_per_acre': 2,
+        'final_units_per_acre': 4,
+        'final_emps_per_acre': 7,
         'household_size': 1.62,
         'office_retail_split': '20/80'
     },
     'City Center': {
-        'final_units_per_acre': 9,
-        'final_emps_per_acre': 9,
+        'final_units_per_acre': 8,
+        'final_emps_per_acre': 11,
         'household_size': 1.62,
         'office_retail_split': '30/70'
     },
@@ -91,8 +91,8 @@ df_centers = pd.DataFrame(data={
         'office_retail_split': '50/50'
     },
     'Metropolitan Center': {
-        'final_units_per_acre': 9,
-        'final_emps_per_acre': 70,
+        'final_units_per_acre': 11,
+        'final_emps_per_acre': 65,
         'household_size': 1.62,
         'office_retail_split': '80/20'
     }
@@ -106,16 +106,43 @@ use_county_multiplier = True
 
 # Define custom settings per county
 df_centers_county_multipliers = pd.DataFrame([
-    [35, 'City Center'        ,'TOTHH' , 1.15],
+    [57, 'Neighborhood Center','TOTEMP', 0.85],
+    [57, 'City Center'        ,'TOTEMP', 0.85],
+    [35, 'Neighborhood Center','TOTHH' , 1.10],
+    [35, 'Neighborhood Center','TOTEMP', 1.20],
+    [35, 'City Center'        ,'TOTHH' , 1.25],
     [35, 'City Center'        ,'TOTEMP', 1.35],
-    [35, 'Urban Center'       ,'TOTHH' , 1.25],
-    [35, 'Urban Center'       ,'TOTEMP', 1.75],
-    [35, 'Metropolitan Center','TOTHH' , 1.5 ],
-    [35, 'Metropolitan Center','TOTEMP', 2.0 ],
-    [49, 'City Center'        ,'TOTHH' , 1.15],
-    [49, 'City Center'        ,'TOTEMP', 1.15],
-    [49, 'Urban Center'       ,'TOTHH' , 1.25],
-    [49, 'Urban Center'       ,'TOTEMP', 1.25],
-    [49, 'Metropolitan Center','TOTHH' , 1.5 ],
-    [49, 'Metropolitan Center','TOTEMP', 1.5 ]
+    [35, 'Urban Center'       ,'TOTHH' , 1.35],
+    [35, 'Urban Center'       ,'TOTEMP', 1.65],
+    [35, 'Metropolitan Center','TOTHH' , 1.50],
+    [35, 'Metropolitan Center','TOTEMP', 2.00],
+    [49, 'Neighborhood Center','TOTHH' , 1.10],
+    [49, 'Neighborhood Center','TOTEMP', 1.10],
+    [49, 'City Center'        ,'TOTHH' , 1.25],
+    [49, 'City Center'        ,'TOTEMP', 1.25],
+    [49, 'Urban Center'       ,'TOTHH' , 1.35],
+    [49, 'Urban Center'       ,'TOTEMP', 1.50],
+    [49, 'Metropolitan Center','TOTHH' , 1.50],
+    [49, 'Metropolitan Center','TOTEMP', 1.65]
 ], columns=['CO_FIPS','center_type','parameter','multiplier'])
+
+
+
+def lookup_county(CoFip):
+    county_map = {
+        3: "Box Elder",
+        11: "Davis",
+        35: "Salt Lake",
+        49: "Utah",
+        57: "Weber"
+    }
+    return county_map.get(CoFip, "Unknown County")  # Default to "Unknown County" if CoFip is not found
+
+def lookup_parameter_label(parameter):
+    parameter_map = {
+        "TOTHH" : "Households",
+        "TOTEMP": "Employees"
+    }
+    return parameter_map.get(parameter, "Unknown Parameter")  # Default to "Unknown County" if CoFip is not found
+
+
