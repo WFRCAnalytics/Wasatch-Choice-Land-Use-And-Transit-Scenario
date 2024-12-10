@@ -76,25 +76,25 @@ df_centers = pd.DataFrame(data={
         'final_units_per_acre': 4,
         'final_emps_per_acre': 7,
         'household_size': 1.62,
-        'office_retail_split': '20/80'
+        'office_retail_ind_split': '35/65/0'
     },
     'City Center': {
         'final_units_per_acre': 8,
-        'final_emps_per_acre': 11,
+        'final_emps_per_acre': 10,
         'household_size': 1.62,
-        'office_retail_split': '30/70'
+        'office_retail_ind_split': '65/35/0'
     },
     'Urban Center': {
         'final_units_per_acre': 10,
-        'final_emps_per_acre': 31,
+        'final_emps_per_acre': 30,
         'household_size': 1.62,
-        'office_retail_split': '50/50'
+        'office_retail_ind_split': '75/15/10'
     },
     'Metropolitan Center': {
         'final_units_per_acre': 11,
-        'final_emps_per_acre': 65,
+        'final_emps_per_acre': 60,
         'household_size': 1.62,
-        'office_retail_split': '80/20'
+        'office_retail_ind_split': '80/10/10'
     }
 }).T.reset_index().rename(columns={'index': 'center_type'})
 
@@ -106,8 +106,10 @@ use_county_multiplier = True
 
 # Define custom settings per county
 df_centers_county_multipliers = pd.DataFrame([
-    [57, 'Neighborhood Center','TOTEMP', 0.85],
-    [57, 'City Center'        ,'TOTEMP', 0.85],
+    [57, 'Neighborhood Center','TOTEMP', 0.80],
+    [57, 'City Center'        ,'TOTEMP', 0.80],
+    [57, 'Urban Center'       ,'TOTEMP', 0.80],
+    [57, 'Metropolitan Center','TOTEMP', 0.80],
     [35, 'Neighborhood Center','TOTHH' , 1.10],
     [35, 'Neighborhood Center','TOTEMP', 1.20],
     [35, 'City Center'        ,'TOTHH' , 1.25],
