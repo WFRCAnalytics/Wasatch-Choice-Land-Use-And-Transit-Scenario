@@ -1,5 +1,7 @@
 # TDM-SCN-Centers-Transit-Strategy-Land-Use
 
+This repo contains the land use calculations used when testing transit strategies for the 2027 RTP. These strategies include additional fixed guideway and bus routes.
+
 **_config.py**: This file contains global objects used throughout the juptyer notebooks.
 
 **1-Prepare-Inputs.ipynb**: This notebook gathers the inputs needed for the scenario from a defined TDM model. These inputs include network link and node shapefiles, taz shapefile, and parsed transit line files.
